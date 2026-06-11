@@ -7,43 +7,31 @@ namespace ControleGastos\Models;
 final class MetodoPagamento
 {
     public function __construct(
-        private string $nome,
-        private bool $ativo = true
-    ) {
-        $this->validar();
-    }
-
-    private function validar(): void
-    {
-        if (trim($this->nome) === '') {
-            throw new \InvalidArgumentException(
-                'O nome do método de pagamento é obrigatório.'
-            );
-        }
-    }
+        private string $nome
+    ) {}
 
     public function getNome(): string
     {
         return $this->nome;
     }
 
-    public function estaAtivo(): bool
+    public static function pix(): self
     {
-        return $this->ativo;
+        return new self('PIX');
     }
 
-    public function ativar(): void
+    public static function dinheiro(): self
     {
-        $this->ativo = true;
+        return new self('Dinheiro');
     }
 
-    public function desativar(): void
+    public static function cartaoCredito(): self
     {
-        $this->ativo = false;
+        return new self('Cartão de Crédito');
     }
 
-    public function __toString(): string
+    public static function cartaoDebito(): self
     {
-        return $this->nome;
+        return new self('Cartão de Débito');
     }
 }
