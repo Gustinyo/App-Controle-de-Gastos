@@ -1,0 +1,16 @@
+{
+    "name": "seu-usuario/controle-gastos-cli",
+    "description": "Sistema de controle de gastos via CLI em PHP com POO",
+    "type": "project",
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "start": "php app.php"
+    }
+}
