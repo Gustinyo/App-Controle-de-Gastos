@@ -9,9 +9,9 @@ class Carteira
 
     public function __construct(string $nome, float $saldoInicial = 0)
     {
-        $this->nome = $nome
-        $this->saldo + $saldoInicial;
-        $this->transacoes +[];
+        $this->nome = $nome;
+        $this->saldo = $saldoInicial;
+        $this->transacoes = [];
 
     }
 
