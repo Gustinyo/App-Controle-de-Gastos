@@ -2,36 +2,50 @@
 
 declare(strict_types=1);
 
-namespace ControleGastos\Models;
+namespace App\Models;
 
-final class MetodoPagamento
+class MetodoPagamento
 {
+    private static int $contador = 0;
+    private int $id;
+
     public function __construct(
-        private string $nome
-    ) {}
+        private string $nome,
+        private string $tipo,
+        private bool $ativo = true
+    ) {
+        self::$contador++;
+        $this->id = self::$contador;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function getNome(): string
     {
         return $this->nome;
     }
 
-    public static function pix(): self
+    public function getTipo(): string
     {
-        return new self('PIX');
+        return $this->tipo;
     }
 
-    public static function dinheiro(): self
+    public function isAtivo(): bool
     {
-        return new self('Dinheiro');
+        return $this->ativo;
     }
 
-    public static function cartaoCredito(): self
+    public function desativar(): void
     {
-        return new self('Cartão de Crédito');
+        $this->ativo = false;
     }
 
-    public static function cartaoDebito(): self
+    public function __toString(): string
     {
-        return new self('Cartão de Débito');
+        $status = $this->ativo ? 'Ativo' : 'Inativo';
+        return "[{$this->id}] {$this->nome} ({$this->tipo}) - {$status}";
     }
 }
