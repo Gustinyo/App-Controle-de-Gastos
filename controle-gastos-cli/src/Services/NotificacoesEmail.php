@@ -1,20 +1,32 @@
 <?php
 
-namespace ControleGastos\Services;
+declare(strict_types=1);
 
-use ControleGastos\Interfaces\NotificavelInterface;
+namespace App\Services;
+
+use App\Interfaces\NotificavelInterface;
 
 class NotificacaoEmail implements NotificavelInterface
 {
-    private string $email;
+    public function __construct(
+        private string $servidorSmtp = 'localhost',
+        private int $porta = 587
+    ) {}
 
-    public function __construct(string $email)
+    public function enviarNotificacao(string $destinatario, string $assunto, string $mensagem): bool
     {
-        $this->email = $email;
+        echo "[EMAIL] Para: {$destinatario} | Assunto: {$assunto}" . PHP_EOL;
+        echo "        Mensagem: {$mensagem}" . PHP_EOL;
+        return true;
     }
 
-    public function enviar(string $mensagem): void
+    public function getTipoNotificacao(): string
     {
-        echo "📧 E-mail enviado para {$this->email}: {$mensagem}" . PHP_EOL;
+        return 'Email';
+    }
+
+    public function getServidorSmtp(): string
+    {
+        return $this->servidorSmtp;
     }
 }
