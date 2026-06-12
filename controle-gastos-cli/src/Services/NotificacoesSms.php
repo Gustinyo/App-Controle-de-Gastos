@@ -1,20 +1,32 @@
 <?php
 
-namespace ControleGastos\Services;
+declare(strict_types=1);
 
-use ControleGastos\Interfaces\NotificavelInterface;
+namespace App\Services;
+
+use App\Interfaces\NotificavelInterface;
 
 class NotificacaoSms implements NotificavelInterface
 {
-    private string $telefone;
+    public function __construct(
+        private string $provedor = 'Twilio',
+        private string $numeroPadrao = '+5500000000000'
+    ) {}
 
-    public function __construct(string $telefone)
+    public function enviarNotificacao(string $destinatario, string $assunto, string $mensagem): bool
     {
-        $this->telefone = $telefone;
+        echo "[SMS] Para: {$destinatario} | Assunto: {$assunto}" . PHP_EOL;
+        echo "      Mensagem: {$mensagem}" . PHP_EOL;
+        return true;
     }
 
-    public function enviar(string $mensagem): void
+    public function getTipoNotificacao(): string
     {
-        echo "📱 SMS enviado para {$this->telefone}: {$mensagem}" . PHP_EOL;
+        return 'SMS';
+    }
+
+    public function getProvedor(): string
+    {
+        return $this->provedor;
     }
 }
